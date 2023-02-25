@@ -3,7 +3,7 @@ package com.example.testingwithmockk.data.source
 import com.example.testingwithmockk.data.Movie
 
 
-object MoviesRemoteDataSource : MoviesDataSource {
+class MoviesRemoteDataSource : MoviesDataSource {
 
     private var MOVIES_REMOTE_DATA = LinkedHashMap<Int, Movie>(2)
 
@@ -44,13 +44,7 @@ object MoviesRemoteDataSource : MoviesDataSource {
         star_actors: ArrayList<String>?
     ){
         val movie = Movie(
-            id = id,
-            title = title,
-            image = image,
-            description = description,
-            directors = directors,
-            star_actors = star_actors
-        )
+              id, title, image, description, directors,star_actors)
         MOVIES_REMOTE_DATA[id] = movie
     }
 

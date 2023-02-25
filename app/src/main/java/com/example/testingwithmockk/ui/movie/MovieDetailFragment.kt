@@ -8,13 +8,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.testingwithmockk.R
 import com.example.testingwithmockk.data.Movie
 import com.example.testingwithmockk.data.source.MoviesDataSource
-import com.example.testingwithmockk.data.source.MoviesRemoteDataSource
 
-class MovieDetailFragment(
+class MovieDetailFragment constructor(
+    val moviesDataSource: MoviesDataSource
 ): Fragment(){
 
     private lateinit var movie_description:TextView
@@ -28,7 +27,7 @@ class MovieDetailFragment(
         super.onCreate(savedInstanceState)
         arguments?.let { args ->
             args.getInt("movie_id").let{ movieId ->
-                MoviesRemoteDataSource.getMovie(movieId)?.let{ movieFromRemote ->
+                moviesDataSource.getMovie(movieId)?.let{ movieFromRemote ->
                     movie = movieFromRemote
                 }
             }

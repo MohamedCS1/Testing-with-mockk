@@ -9,7 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.example.testingwithmockk.R
 import com.example.testingwithmockk.data.Movie
-import com.example.testingwithmockk.data.source.MoviesDataSource
+import com.example.testingwithmockk.data.source.MoviesRemoteDataSource
 import com.example.testingwithmockk.factory.MovieFragmentFactory
 import io.mockk.every
 import io.mockk.mockk
@@ -33,12 +33,12 @@ internal class MovieDetailFragmentTest
             arrayListOf("Robert Downey Jr.", "Chris Hemsworth", "Mark Ruffalo", "+ more...")
         )
 
-//        val moviesDataSource = mockk<MoviesDataSource>()
-//        every {
-//            moviesDataSource.getMovie(movie.id)
-//        } returns movie
-//
-        val fragmentFactory = MovieFragmentFactory()
+        val moviesRemoteDataSource = mockk<MoviesRemoteDataSource>()
+        every {
+            moviesRemoteDataSource.getMovie(movie.id)
+        } returns movie
+
+        val fragmentFactory = MovieFragmentFactory(MoviesRemoteDataSource())
 
         val bundle = Bundle()
         bundle.putInt("movie_id" ,movie.id)

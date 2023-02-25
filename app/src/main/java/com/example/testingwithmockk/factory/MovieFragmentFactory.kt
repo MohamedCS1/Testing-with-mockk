@@ -2,18 +2,30 @@ package com.example.testingwithmockk.factory
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
+import com.example.testingwithmockk.data.source.MoviesDataSource
 import com.example.testingwithmockk.ui.movie.DirectorsFragment
 import com.example.testingwithmockk.ui.movie.MovieDetailFragment
 import com.example.testingwithmockk.ui.movie.StarActorsFragment
 
-class MovieFragmentFactory:FragmentFactory() {
+class MovieFragmentFactory(
+    private val moviesDataSource: MoviesDataSource? = null
+) : FragmentFactory() {
 
-    override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
+    private val TAG: String = "AppDebug"
 
-        when(className){
+    override fun instantiate(classLoader: ClassLoader, className: String) =
+
+        when (className) {
 
             MovieDetailFragment::class.java.name -> {
-                MovieDetailFragment()
+                if (moviesDataSource != null
+                ) {
+                    MovieDetailFragment(
+                        moviesDataSource
+                    )
+                } else {
+                    super.instantiate(classLoader, className)
+                }
             }
 
             DirectorsFragment::class.java.name -> {
@@ -28,6 +40,4 @@ class MovieFragmentFactory:FragmentFactory() {
                 super.instantiate(classLoader, className)
             }
         }
-        return super.instantiate(classLoader, className)
-    }
 }
